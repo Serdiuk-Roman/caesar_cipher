@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from . import my_fun
 
 def coder(request):
     return render(request, 'coder_page/base.html', {})
