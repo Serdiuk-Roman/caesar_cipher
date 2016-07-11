@@ -2,7 +2,6 @@
 $(function() {
     $(document).ready(function() {
 
-
         $(function () {
             $.ajaxSetup({
                 headers: { "X-CSRFToken": getCookie("csrftoken") }
@@ -28,23 +27,35 @@ $(function() {
             var event = {
                 text: $("#original_text").val(),
                 step: $("#step").val(),
-                flag: "0",
             };
             
-            var str = JSON.stringify(event);
+            if( event.text != '' && event.step != '') {
             
-            $.ajax({
-                type: "POST",
-                url: "/cipher/",
-                dataType: "json",
-                contentType: 'application/json; charset=utf-8',
-                data: str,
-                cache: false,
-                success: function(return_data){
-                    $("#cipher_text").text(return_data.cipher_text)
-                    $("#advice").text(return_data.advice)
-                }
-            });
+                var str = JSON.stringify(event);
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/cipher/",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: str,
+                    cache: false,
+                    success: function(return_data){
+                        $("#cipher_text").text(return_data.cipher_text);
+                        if(return_data.advice == '26' || return_data.advice == '0') {
+                            $("#advice").text('When you click "Decrypt", in this place will show advice :-)');
+                        } else {
+                            $("#advice").text('May be this text encrypted, try step = ' + return_data.advice + ' and click "Decrypt".');
+                        };
+                        
+                        var data_chart = return_data.counter_list;
+                        drawChart(data_chart);
+                    }
+                });
+            } else {
+                $("#advice").text("Please enter the text and step.");
+            };
+
         });
 
 
@@ -53,51 +64,62 @@ $(function() {
             var event = {
                 text: $("#original_text").val(),
                 step: -$("#step").val(),
-                flag: "1",
             };
             
-            var str = JSON.stringify(event);
-            
-            $.ajax({
-                type: "POST",
-                url: "/cipher/",
-                dataType: "json",
-                contentType: 'application/json; charset=utf-8',
-                data: str,
-                cache: false,
-                success: function(return_data){
-                    $("#cipher_text").text(return_data.cipher_text)
-                    $("#advice").text(return_data.advice)
-                }
-            });
+            if( event.text != '' && event.step != '') {
+                
+                var str = JSON.stringify(event);
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/cipher/",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: str,
+                    cache: false,
+                    success: function(return_data){
+                        $("#cipher_text").text(return_data.cipher_text)
+                        $("#advice").text("Recommended step = " + return_data.advice)
+                        
+                        var data_chart = return_data.counter_list;
+                        drawChart(data_chart);
+                    }
+                });
+            } else {
+                $("#advice").text("Please enter the text and step.");
+            };
         });
 
 
         $("#reset").click(function(){
             $("#cipher_text").text("");
             $("#advice").text("...");
+            $("#diagram").html('');
         });
+        
+        
+        google.charts.load("current", {packages:["corechart"]});
+        
+        function drawChart(data_chart) {
+            
+            var alphabet = "abcdefghijklmnopqrstuvwxyz";
+            
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Letter');
+            data.addColumn('number', 'count');
+            
+            for (var i = 0; i < 26; i++) {
+                data.addRow([alphabet[i], data_chart[i]]);
+            }
+
+            var options = {
+                legend: { position: 'none' },
+            };
+    
+            var chart = new google.visualization.ColumnChart(document.getElementById('diagram'));
+            chart.draw(data, options);
+        };
 
 
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

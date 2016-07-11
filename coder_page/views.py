@@ -2,7 +2,6 @@ import json
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 
 def coder(request):
     return render(request, 'coder_page/base.html', {})
@@ -13,10 +12,9 @@ def caesar_cipher(request):
         objs = json.loads(request.body.decode("utf-8"))
         text = objs.get('text')
         step = int(objs.get('step')) or 0
-        flag = int(objs.get('flag'))
         
         result = ""
-        advice = "after you click decode advice show"
+        advice = ""
         alphabet = "abcdefghijklmnopqrstuvwxyz"
         counter_list = []
         
@@ -31,23 +29,22 @@ def caesar_cipher(request):
             else:
                 result = result + i
         
-        if flag == 1:
             
-            for k in alphabet:
-                counter = text.count(k) + text.count(k.upper())
-                counter_list.append(counter)
-            
-            x = counter_list.index(max(counter_list))
+        for k in alphabet:
+            counter = text.count(k) + text.count(k.upper())
+            counter_list.append(counter)
+        
+        x = counter_list.index(max(counter_list))
 
-            if ord("a") + x > ord("e"):
-                advice_step = ord("a") + x - ord("e")
-            else:
-                advice_step = 26 + x + ord("a")  - ord("e")
-            
-            advice = "advice step = " + str(advice_step)
+        if ord("a") + x > ord("e"):
+            advice_step = ord("a") + x - ord("e")
+        else:
+            advice_step = 26 + x + ord("a")  - ord("e")
+        
+        advice = str(advice_step)
 
-
-        data = {"cipher_text": result, "advice": advice}
+        print (counter_list)
+        data = {"cipher_text": result, "advice": advice, "counter_list": counter_list}
 
         return JsonResponse(data)
     else:
