@@ -2,12 +2,13 @@
 $(function() {
     $(document).ready(function() {
 
+//required for csrf token
         $(function () {
             $.ajaxSetup({
                 headers: { "X-CSRFToken": getCookie("csrftoken") }
             });
         });
-        
+
         function getCookie(c_name) {
             if (document.cookie.length > 0) {
                 c_start = document.cookie.indexOf(c_name + "=");
@@ -21,7 +22,7 @@ $(function() {
             return "";
         }
 
-
+//handler encrypt key, send post request on server
         $("#encryption_key").click(function(){
             
             var event = {
@@ -58,7 +59,7 @@ $(function() {
 
         });
 
-
+//handler decrypt key, send post request on server
         $("#decryption_key").click(function(){
             
             var event = {
@@ -79,7 +80,11 @@ $(function() {
                     cache: false,
                     success: function(return_data){
                         $("#cipher_text").text(return_data.cipher_text)
-                        $("#advice").text("Recommended step = " + return_data.advice)
+                        if(return_data.advice == '26' || return_data.advice == '0') {
+                            $("#advice").text('May be this text not encrypted.');
+                        } else {
+                            $("#advice").text("Recommended step = " + return_data.advice);
+                        };
                         
                         var data_chart = return_data.counter_list;
                         drawChart(data_chart);
@@ -90,14 +95,14 @@ $(function() {
             };
         });
 
-
+//reset form
         $("#reset").click(function(){
             $("#cipher_text").text("");
             $("#advice").text("...");
             $("#diagram").html('');
         });
         
-        
+//Google Charts
         google.charts.load("current", {packages:["corechart"]});
         
         function drawChart(data_chart) {
@@ -119,7 +124,6 @@ $(function() {
             var chart = new google.visualization.ColumnChart(document.getElementById('diagram'));
             chart.draw(data, options);
         };
-
 
     });
 });

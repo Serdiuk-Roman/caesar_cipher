@@ -11,13 +11,14 @@ def caesar_cipher(request):
         
         objs = json.loads(request.body.decode("utf-8"))
         text = objs.get('text')
-        step = int(objs.get('step')) or 0
+        step = int(objs.get('step'))
         
         result = ""
         advice = ""
         alphabet = "abcdefghijklmnopqrstuvwxyz"
         counter_list = []
         
+        #text analysis Caesar cipher
         for i in text:
             if i.isalpha():
                 if i.isupper():
@@ -29,13 +30,13 @@ def caesar_cipher(request):
             else:
                 result = result + i
         
-            
+        #search most used letter
         for k in alphabet:
             counter = text.count(k) + text.count(k.upper())
             counter_list.append(counter)
-        
         x = counter_list.index(max(counter_list))
-
+        
+        #step define
         if ord("a") + x > ord("e"):
             advice_step = ord("a") + x - ord("e")
         else:
@@ -43,9 +44,6 @@ def caesar_cipher(request):
         
         advice = str(advice_step)
 
-        print (counter_list)
         data = {"cipher_text": result, "advice": advice, "counter_list": counter_list}
 
         return JsonResponse(data)
-    else:
-        return JsonResponse({'bar': 'foo'})
