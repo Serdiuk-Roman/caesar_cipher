@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'coder_page',
+    'datawiz',
 ]
 
 MIDDLEWARE_CLASSES = [

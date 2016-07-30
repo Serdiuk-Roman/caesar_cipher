@@ -1,0 +1,20 @@
+{% extends 'datawiz/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <div class="rov">
+            <div class="col-sm-5 text-left">
+                <a href="{% url 'register' %}">
+                    <h1 class="text-right">Реєстрація</h1>
+                </a>
+            </div>
+            <div class="col-sm-2"><h2 class="text-center">або</h2></div>
+            <div class="col-sm-5">
+                <a href="{% url 'login' %}">
+                    <h1>Залогінитися</h1>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

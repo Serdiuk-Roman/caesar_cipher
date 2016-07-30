@@ -1,0 +1,12 @@
+{% extends 'datawiz/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h1>Ввійдіть під своїм профілем.</h1>
+    <form action="" method="post">
+      {% csrf_token %}
+      <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
+      {{ form.as_p }}
+      <button type="submit">Аутентифікація</button>
+    </form>
+{% endblock %}
