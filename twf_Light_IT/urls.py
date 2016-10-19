@@ -16,11 +16,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^dcod/', include('dcod.urls')),
     url(r'^dw/', include('datawiz.urls')),
     url(r'^lit/', include('coder_page.urls')),
-    url(r'^$', views.first_page),
+    url(r'^', include('fp.urls')),
 ]

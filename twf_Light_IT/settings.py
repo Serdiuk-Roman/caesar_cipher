@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'coder_page',
     'datawiz',
+    'dcod',
+    'fp',
 ]
 
 MIDDLEWARE_CLASSES = [
