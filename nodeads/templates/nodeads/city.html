@@ -21,16 +21,44 @@
                     <button id="sort_key" type="button" class="btn btn-default btn-іь">Оновити</button>
                 </div>
             </form>
-            <div id="diagram" style="height: 300px"></div>
+            <div id="diagram" style="height: 200px"></div>
         </div>
         
         <div class="container">
             <h2>3. Графік змін тиску на 5 днів</h2>
-            <div id="diagram2" style="height: 300px"></div>
+            
         </div>
         
+        <div id="diagram2" style="height: 300px"></div>
+        
         <div class="container">
-            <h2>4. Повний прогноз погоди у вигляді таблиці:</h2>
+            <h2>4. Прогноз погоди у вигляді таблиці:</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Дата</th>
+                    <th>Температура</th>
+                    <th>Вітер</th>
+                    <th>Хмарність</th>
+                    <th>Тиск</th>
+                    <th>Опис</th>
+                </tr>
+                {% for row in little_table %}
+                <tr>
+                    <td><h4>{{ row.0 }}</h4></td>
+                    <td><h4>{{ row.1 }} / {{ row.2 }} °C</h4></td>
+                    <td><h4>{{ row.3 }} м/с</h4></td>
+                    <td><h4>{{ row.4 }} %</h4></td>
+                    <td><h4>{{ row.5 }} кПа</h4></td>
+                    <td><h4>{{ row.6 }} </h4></td>
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        
+        <div class="container">
+            <h2>5. Детальний прогноз погоди:</h2>
             <table class="table table-striped">
                 <tr>
                     <th>Дата</th>
