@@ -2,7 +2,6 @@
 *.geany
 __pycache__
 myvenv
-db.sqlite3
 /static
 /pythonAPI
 .DS_Store
