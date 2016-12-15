@@ -19,8 +19,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^dcod/', include('dcod.urls')),
-    url(r'^dw/', include('datawiz.urls')),
     url(r'^lit/', include('coder_page.urls')),
+    url(r'^nodeads/', include('nodeads.urls')),
     url(r'^', include('fp.urls')),
 ]

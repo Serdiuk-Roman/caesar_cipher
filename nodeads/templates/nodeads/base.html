@@ -6,31 +6,23 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{% static 'coder_page/images/favicon.ico' %}">
-        <title>Test site for test work</title>
+        <title>Test site for Nodeads</title>
+        
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    
     </head>
 
     <body>
-        
         <div class="container">
             <a href="{% url 'home' %}"><h3>Home</h3></a>
-            <p>First page</p>
             <hr>
         </div>
         
         <div class="container">
-            <div class="row">
-                <div class="col-sm-5">
-                    <a href="/lit/"><h3 class="text-center">LIT</h3></a>
-                </div>
-                <div class="col-sm-2">
-                    <h3 class="text-center">OR</h3>
-                </div>
-                <div class="col-sm-5">
-                    <a href="/nodeads/"><h3 class="text-center">Nodeads</h3></a>
-                </div>
-            </div>
+            <h1>Виберіть дату й зробіть клік по кнопці "Оновити"</h1>
         </div>
+        
+        {% block content %}{% endblock %}
     
         <div class="container">
             <hr>
@@ -41,6 +33,9 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <script src="{% static 'nodeads/scripts_charts.js' %}"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     </body>
 </html>

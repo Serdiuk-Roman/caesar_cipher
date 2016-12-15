@@ -1,0 +1,59 @@
+{% extends 'nodeads/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+        <div class="container">
+            <h2>1. Місто та його координати</h2>
+            <h4>{{ city_name.0 }}. Довгота: {{ city_name.1 }}. Широта: {{ city_name.2 }}</h4>
+            <p> </p>
+        </div>
+        
+        <div class="container">
+            <h2>2. Графік температур(день/ніч)</h2>
+            <form class="form-inline">
+                <div class="form-group">
+                    <select id="date" class="form-control">
+                        {% for row in step %}
+                        <option value= {{ row.0 }} >{{ row }}</option>
+                        {% endfor %}
+                    </select>
+                    <button id="sort_key" type="button" class="btn btn-default btn-іь">Оновити</button>
+                </div>
+            </form>
+            <div id="diagram" style="height: 300px"></div>
+        </div>
+        
+        <div class="container">
+            <h2>3. Графік змін тиску на 5 днів</h2>
+            <div id="diagram2" style="height: 300px"></div>
+        </div>
+        
+        <div class="container">
+            <h2>4. Повний прогноз погоди у вигляді таблиці:</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Дата</th>
+                    <th>Час</th>
+                    <th>Температура</th>
+                    <th>Вітер</th>
+                    <th>Хмарність</th>
+                    <th>Тиск</th>
+                    <th>Опис</th>
+                </tr>
+                {% for row in for_table %}
+                <tr>
+                    <td><h4>{{ row.0 }}</h4></td>
+                    <td><h4>{{ row.1 }}</h4></td>
+                    <td><h4>{{ row.2 }} / {{ row.3 }} °C</h4></td>
+                    <td><h4>{{ row.4 }} м/с</h4></td>
+                    <td><h4>{{ row.5 }} %</h4></td>
+                    <td><h4>{{ row.6 }} кПа</h4></td>
+                    <td><h4>{{ row.7 }} </h4></td>
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+{% endblock %}
