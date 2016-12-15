@@ -3,8 +3,6 @@ from django.http import HttpResponse, JsonResponse
 import requests, json, datetime
 from .models import Culeba
 
-from . import kyiv
-
 def ajax(request):
     if request.method == "POST":
         
@@ -22,7 +20,6 @@ def ajax(request):
         pres = [i.pressure for i in x]
         
         return JsonResponse({'dt_t' : dt_t, 'temp': temp, 'dt_p' : dt_p, 'pres': pres})
-        #return JsonResponse({'dt_t' : dt_t, 'temp': temp})
 
 def owmo(request):
     
