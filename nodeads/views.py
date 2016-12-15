@@ -47,7 +47,6 @@ def owmo(request):
         little_table[counter].append(round(sum(m)/len(m), 2))
         n = [k.description for k in db_lt]
         n2 = [i[0] for i in collections.Counter(n).most_common(1)]
-        print(n2)
         little_table[counter].append(n2[0])
         counter += 1
     
